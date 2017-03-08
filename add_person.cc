@@ -61,7 +61,7 @@ int main(int argc, char* argv[]) {
     GOOGLE_PROTOBUF_VERIFY_VERSION;
 
     if (argc != 2) {
-        cerr << "Usage: " << argv[0] << " ADDRESS_BOOK_FILE" << end;
+        cerr << "Usage: " << argv[0] << " ADDRESS_BOOK_FILE" << endl;
         return -1;
     }
 

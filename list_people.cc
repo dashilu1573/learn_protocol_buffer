@@ -7,11 +7,11 @@ using namespace std;
 
 // Iterates though all people in the AddressBook and prints info about them.
 void ListPeople(const tutorial::AddressBook& address_book) {
-    for (int i = 0; i < address_book; ++i) {
+    for (int i = 0; i < address_book.people_size(); ++i) {
         const tutorial::Person& person = address_book.people(i);
 
         cout << "Person ID: " << person.id() << endl;
-        cout << " Name: " << person.name() << end;
+        cout << " Name: " << person.name() << endl;
         if (person.has_email()) {
             cout << "E-mail address: " << person.email() << endl;
         }
@@ -41,7 +41,7 @@ int main(int args, char* argv[]) {
     // compatible with the version of the headers we compiled against.
     GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-    if (argc != 2) {
+    if (args != 2) {
         cerr << "Usage:  " << argv[0] << " ADDRESS_BOOK_FILE" << endl;
         return -1;
     }
