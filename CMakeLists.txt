@@ -5,17 +5,12 @@ cmake_minimum_required(VERSION 2.8.12)
 project(learn_protobuf-buffer)
 
 # Find required protobuf package
-find_package(protobuf REQUIRED)
+find_package(Protobuf REQUIRED)
+include_directories(${PROTOBUF_INCLUDE_DIRS})
 
-INCLUDE_DIRECTORIES(${PROTOBUF_INCLUDE_DIR})
-# 生成proto的cpp源文件和头文件
-PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER addressbook.proto)
-# 生成静态库文件
-ADD_LIBRARY(proto ${PROTO_HEADER} ${PROTO_SRC})
+set(SOURCE_FILES main.cpp addressbook.pb.h addressbook.pb.cc)
 
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
-
-ADD_EXECUTABLE(${CMAKE_PROJECT_NAME}_add add_person.cc)
-ADD_EXECUTABLE(${CMAKE_PROJECT_NAME}_list list_people.cc)
-TARGET_LINK_LIBRARIES(${CMAKE_PROJECT_NAME}_add proto ${PROTOBUF_LIBRARY})
-TARGET_LINK_LIBRARIES(${CMAKE_PROJECT_NAME}_list proto ${PROTOBUF_LIBRARY})
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+PROTOBUF_GENERATE_CPP(PROTO_SRCS PROTO_HDRS addressbook.proto)
+add_executable(main main.cpp ${PROTO_SRCS} ${PROTO_HDRS})
+target_link_libraries(main ${PROTOBUF_LIBRARIES})
